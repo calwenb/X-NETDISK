@@ -4,6 +4,11 @@
       "name": "spring.datasource.testWhileIdle",
       "type": "java.lang.String",
       "description": "Description for spring.datasource.testWhileIdle."
+    },
+    {
+      "name": "spring.datasource.druid.filter",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.druid.filter."
     }
   ]
 }
