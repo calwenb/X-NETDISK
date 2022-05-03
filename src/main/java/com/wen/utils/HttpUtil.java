@@ -5,6 +5,11 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
+/**
+ * HttpUtil类
+ *
+ * @author Mr.文
+ */
 public class HttpUtil {
     public static String sendGet(String url) {
         String result = "";

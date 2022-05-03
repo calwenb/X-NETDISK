@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 
 /**
+ * FileFolder实体类
  * @author Mr.文
  */
 @Data

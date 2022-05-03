@@ -5,6 +5,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+/**
+ * LogHandlerUtil类
+ * 动态代理模式
+ * 用于记录业务的日志
+ * @author Mr.文
+ */
 public class LogHandlerUtil implements InvocationHandler {
     private Object target;
 

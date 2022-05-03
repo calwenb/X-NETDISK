@@ -7,6 +7,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * FileUtil类
+ * @author Mr.文
+ */
 @Component
 public class FileUtil {
     /**

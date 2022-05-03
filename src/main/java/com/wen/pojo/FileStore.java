@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * File实体类
  * @author Mr.文
  */
 @Data

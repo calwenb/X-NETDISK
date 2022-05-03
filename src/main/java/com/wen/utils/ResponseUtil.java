@@ -4,6 +4,12 @@ import com.alibaba.fastjson.JSON;
 
 import java.util.HashMap;
 
+/**
+ * ResponseUtil类
+ * 约束响应规则
+ *
+ * @author Mr.文
+ */
 public class ResponseUtil {
 
     private static String SUCCESS_CODE = "200";
@@ -16,7 +22,6 @@ public class ResponseUtil {
 
 
     public static String success(String msg) {
-
         HashMap<String, String> resp = new HashMap<>(16);
         resp.put("code", SUCCESS_CODE);
         resp.put("msg", msg);

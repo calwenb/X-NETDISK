@@ -8,6 +8,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 
+/**
+ * WarmUp预热类
+ * 1.Redis预热
+ * 2.es预热
+ * @author Mr.文
+ */
 @Component
 public class WarmUpTask {
     @Autowired
@@ -28,7 +34,7 @@ public class WarmUpTask {
     }
 
     /**
-     * es缓存 预热
+     * es 预热
      * 每天凌晨0点执行任务
      */
     //@Scheduled(cron = "0/10 * * * * ?")

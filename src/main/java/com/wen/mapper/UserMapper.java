@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
+ * UserMapper类 持久层
  * @author Mr.文
  */
 @Mapper

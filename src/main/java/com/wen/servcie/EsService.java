@@ -7,6 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * ElasticSearch业务类
+ * 对es进行数据同步操作，以及预热
+ * @author Mr.文
+ */
 public interface EsService {
     boolean addData(List<MyFile> list);
 

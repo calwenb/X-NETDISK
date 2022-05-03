@@ -6,6 +6,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * ClearFileTask 任务类
+ * 清理无效的文件，以便减少磁盘资源的占用
+ * @author Mr.文
+ */
 @Component
 public class ClearFileTask {
     @Autowired

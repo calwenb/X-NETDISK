@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
+/**
+ * SearchController类
+ * @author Mr.文
+ */
 @RestController
 @RequestMapping("/search")
 public class SearchController extends BaseController {

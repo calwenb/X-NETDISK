@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * FileFolderController类
+ *
+ * @author Mr.文
+ */
 @RestController
 @RequestMapping("/fileFolder")
 public class FileFolderController extends BaseController {

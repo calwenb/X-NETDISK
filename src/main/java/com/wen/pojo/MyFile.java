@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
+ * File实体类
  * @author Mr.文
  */
 @Data

@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
  * 创建公用线程池 工具类
  * 懒汉式 单利模式
  * 公用线程池不允许被关闭
+ *
+ * @author Mr.文
  */
 public class ThreadPoolUtil {
     private static volatile ThreadPoolExecutor threadPool = null;

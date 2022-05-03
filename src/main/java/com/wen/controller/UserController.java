@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+/**
+ * UserController类
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController extends BaseController {

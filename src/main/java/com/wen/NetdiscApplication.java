@@ -9,6 +9,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
+ * netdisc主启动类
+ * 入口
+ *
  * @author Mr.文
  */
 @EnableAsync

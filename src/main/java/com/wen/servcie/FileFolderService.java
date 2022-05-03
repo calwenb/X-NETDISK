@@ -5,6 +5,11 @@ import com.wen.pojo.FileFolder;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * FileFolderService业务类
+ * 对文件夹进行增删改查，并操作服务器I/O
+ * @author Mr.文
+ */
 public interface FileFolderService {
     boolean addFileFolder(FileFolder fileFolder) throws IOException;
 

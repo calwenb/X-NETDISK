@@ -4,7 +4,7 @@
  Source Server         : 服务器
  Source Server Type    : MySQL
  Source Server Version : 50734
- Source Host           : 112.74.78.182:3306
+ Source Host           : XXX:3306
  Source Schema         : my_pan
 
  Target Server Type    : MySQL

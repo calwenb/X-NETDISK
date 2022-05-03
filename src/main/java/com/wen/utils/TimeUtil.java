@@ -3,6 +3,12 @@ package com.wen.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * TimeUtil类
+ * 转换时间格式
+ *
+ * @author Mr.文
+ */
 public class TimeUtil {
     public static String getNow() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

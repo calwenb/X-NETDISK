@@ -1,6 +1,12 @@
 package com.wen.utils;
 
 
+/**
+ * NullUtil类
+ * 判断参数是否有null，避免nullPointerException
+ *
+ * @author Mr.文
+ */
 public class NullUtil {
     /**
      * 判断是否有空的参数
@@ -10,7 +16,7 @@ public class NullUtil {
      */
     public static boolean hasNull(Object... params) {
         for (Object o : params) {
-            if (o == null|| "".equals(o)) {
+            if (o == null || "".equals(o)) {
                 return true;
             }
         }

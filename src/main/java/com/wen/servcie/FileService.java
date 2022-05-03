@@ -9,6 +9,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * FileService业务类
+ * 对File进行上传、下载、删除、查询、修改、分享、清除无效文件
+ * 并操作服务器I/O
+ * @author Mr.文
+ */
 @Service
 public interface FileService {
 

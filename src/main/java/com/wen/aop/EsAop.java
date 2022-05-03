@@ -8,6 +8,13 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * ElasticSearch的AOP
+ * 用于保证es中数据一致性，
+ * 当修改据库es中也需要修改
+ *
+ * @author Mr.文
+ */
 @Aspect
 @Component
 public class EsAop {
@@ -24,7 +31,6 @@ public class EsAop {
         if ((int) rs > 0) {
             esService.addData(file);
         }
-
         return (int) rs;
     }
 

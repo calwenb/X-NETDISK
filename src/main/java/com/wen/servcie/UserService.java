@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ *
  * @author Mr.文
  */
 public interface UserService {
@@ -51,8 +52,20 @@ public interface UserService {
      */
     User login(String loginName, String pwd);
 
-
+    /**
+     * 注册业务
+     * 注册、并初始化用户仓库
+     * @param userName
+     * @param loginName
+     * @param pwd
+     * @return
+     */
     Map<String,Object> register(String userName, String loginName, String pwd);
 
+    /**
+     * 通过Id获得user信息
+     * @param userID
+     * @return
+     */
     User getUserById(int userID);
 }

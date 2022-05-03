@@ -14,6 +14,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Druid配置类
+ * @author Mr.文
+ */
 @Configuration
 public class DruidConfig {
 

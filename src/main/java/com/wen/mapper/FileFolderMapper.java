@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * FileFolderMapper类 持久层
+ *
+ * @author Mr.文
+ */
 @Mapper
 @Repository
 @CacheConfig(cacheNames = "folder")
@@ -21,7 +26,6 @@ public interface FileFolderMapper {
     FileFolder queryFileFolderById(int fileFolderId);
 
     List<FileFolder> queryFoldersByPId(int storeId, int parentFolderId);
-
 
     @CacheEvict(key = "'fdid:'+#p0")
     int delFolderById(int fileFolderId);
