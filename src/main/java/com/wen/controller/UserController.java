@@ -7,6 +7,7 @@ import com.wen.utils.NullUtil;
 import com.wen.utils.ResponseUtil;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -35,12 +36,14 @@ public class UserController extends BaseController {
     @PassToken
     @PostMapping("/register")
     public String register(@RequestParam("loginName") String userName,
+                           @RequestParam("email") String email,
                            @RequestParam("loginName") String loginName,
                            @RequestParam("password") String password) {
-        if ((NullUtil.hasNull(userName, loginName, password))) {
+        if ((NullUtil.hasNull(userName, email, loginName, password))) {
             return NullUtil.msg();
         }
-        Map<String, Object> rs = userService.register(userName, loginName, password);
+        User user = new User(-1, userName, loginName, password, 2, "", email, "/#", new Date());
+        Map<String, Object> rs = userService.register(user);
         if (rs.containsKey("error")) {
             return ResponseUtil.error(rs.get("error").toString());
         }
@@ -79,6 +82,36 @@ public class UserController extends BaseController {
             e.printStackTrace();
             return ResponseUtil.error("修改错误");
         }
+    }
 
+    @PassToken
+    @PostMapping("/sendCode")
+    public String sendCode(@RequestParam("loginName") String loginName,
+                           @RequestParam("email") String email) {
+        if ((NullUtil.hasNull(loginName, email))) {
+            return NullUtil.msg();
+        }
+        if (userService.sendCode(loginName, email)) {
+            return ResponseUtil.success("发送成功，三分钟内有效");
+        }
+        return ResponseUtil.error("发送失败。输入用户预留邮箱，未预留邮箱暂不支持服务");
+    }
+
+
+    @PassToken
+    @PostMapping("/re_pwd")
+    public String repwd(@RequestParam("loginName") String loginName,
+                        @RequestParam("password") String password,
+                        @RequestParam("code") String code) {
+        if ((NullUtil.hasNull(loginName, password))) {
+            return NullUtil.msg();
+        }
+        if (!userService.verifyCode(loginName, code)) {
+            return ResponseUtil.error("验证码不正确或已失效");
+        }
+        if (userService.repwd(loginName, password)) {
+            return ResponseUtil.success("密码重置成功");
+        }
+        return ResponseUtil.error("密码重置失败");
     }
 }

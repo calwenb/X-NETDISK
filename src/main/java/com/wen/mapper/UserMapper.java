@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * UserMapper类 持久层
+ *
  * @author Mr.文
  */
 @Mapper
@@ -33,4 +34,6 @@ public interface UserMapper {
 
     @Cacheable(key = "'uid:'+#p0")
     User getUserById(int id);
+
+    User getUserByLName(String loginName);
 }

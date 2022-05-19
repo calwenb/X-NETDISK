@@ -15,7 +15,6 @@ import java.util.List;
  * 并操作服务器I/O
  * @author Mr.文
  */
-@Service
 public interface FileService {
 
     boolean uploadFile(MultipartFile file, int userId, String fatherFileFolderId);

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author Mr.文
  */
 public interface UserService {
@@ -55,17 +54,32 @@ public interface UserService {
     /**
      * 注册业务
      * 注册、并初始化用户仓库
+     *
      * @param userName
      * @param loginName
      * @param pwd
      * @return
      */
-    Map<String,Object> register(String userName, String loginName, String pwd);
+    Map<String, Object> register(User user);
 
     /**
      * 通过Id获得user信息
+     *
      * @param userID
      * @return
      */
     User getUserById(int userID);
+
+    /**
+     * 申请发验证邮件
+     *
+     * @param loginName
+     * @param email
+     * @return
+     */
+    boolean sendCode(String loginName, String email);
+
+    boolean verifyCode(String loginName, String code);
+
+    boolean repwd(String loginName, String password);
 }

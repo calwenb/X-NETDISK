@@ -3,17 +3,21 @@ package com.wen.servcie.impl;
 import com.wen.mapper.UserMapper;
 import com.wen.pojo.User;
 import com.wen.servcie.FileStoreService;
+import com.wen.servcie.MailService;
 import com.wen.servcie.TokenService;
 import com.wen.servcie.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.util.Date;
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Mr.文
@@ -23,11 +27,14 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
-
     @Autowired
     TokenService tokenService;
     @Autowired
     FileStoreService storeService;
+    @Resource
+    MailService mailService;
+    @Resource
+    RedisTemplate redisTemplate;
 
 
     /**
@@ -86,9 +93,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> register(String userName, String loginName, String pwd) {
+    public Map<String, Object> register(User user) {
         HashMap<String, Object> rs = new HashMap<>(2);
-        User user = new User(-1, userName, loginName, pwd, 2, "", "", "/#", new Date());
         try {
             userMapper.addUser(user);
         } catch (Exception e) {
@@ -110,5 +116,65 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(int userID) {
         return userMapper.getUserById(userID);
+    }
+
+    @Override
+    public boolean sendCode(String loginName, String email) {
+        User user = userMapper.getUserByLName(loginName);
+        if (user == null) {
+            return false;
+        }
+        if (!email.equals(user.getEmail())) {
+            return false;
+        }
+        try {
+            String code = this.createCode();
+            String subject, content;
+            subject = "重置密码";
+            content = "账号: " + loginName + "，您好。\n" +
+                    "您当前正在重置密码，您的验证码为：" + code;
+            mailService.sendSimpleMail(email, subject, content);
+            String key = "code:lname:" + loginName;
+            redisTemplate.opsForValue().set(key, code, 3, TimeUnit.MINUTES);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    @Override
+    public boolean verifyCode(String loginName, String code) {
+        String key = "code:lname:" + loginName;
+        Object value = redisTemplate.opsForValue().get(key);
+        if (value == null) {
+            return false;
+        }
+        String realCode = String.valueOf(value);
+        if (realCode.equals(code)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean repwd(String loginName, String password) {
+        User user = userMapper.getUserByLName(loginName);
+        if (user == null) {
+            return false;
+        }
+        user.setPassWord(password);
+        userMapper.updateUser(user);
+        return true;
+    }
+
+    private String createCode() {
+        StringBuilder code = new StringBuilder();
+        //文件生成码
+        for (int i = 0; i < 5; i++) {
+            code.append(new Random().nextInt(9));
+        }
+        return String.valueOf(code);
     }
 }

@@ -12,13 +12,13 @@ import java.util.HashMap;
  */
 public class ResponseUtil {
 
-    private static String SUCCESS_CODE = "200";
-    private static String FILE_MISS_CODE = "404";
-    private static String ERROR_CODE = "700";
-    private static String U_FILE_ERROR_CODE = "701";
+    private static final String SUCCESS_CODE = "200";
+    private static final String FILE_MISS_CODE = "404";
+    private static final String ERROR_CODE = "700";
+    private static final String U_FILE_ERROR_CODE = "701";
 
-    private static String D_FILE_ERROR_CODE = "702";
-    private static String POWER_ERROR = "401";
+    private static final String D_FILE_ERROR_CODE = "702";
+    private static final String POWER_ERROR = "401";
 
 
     public static String success(String msg) {

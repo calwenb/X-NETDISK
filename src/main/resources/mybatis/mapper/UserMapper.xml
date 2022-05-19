@@ -51,5 +51,10 @@
         from my_pan.user
         where id = #{id}
     </select>
+    <select id="getUserByLName" resultType="com.wen.pojo.User">
+        select *
+        from my_pan.user
+        where login_name = #{loginName}
+    </select>
 
 </mapper>

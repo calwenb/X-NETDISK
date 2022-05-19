@@ -26,9 +26,15 @@ public class RedisServiceImpl implements RedisService {
     FileStoreMapper fileStoreMapper;
     @Autowired
     FileFolderMapper fileFolderMapper;
-    @Autowired
 
+    @Autowired
     RedisTemplate redisTemplate;
+
+/*    @Override
+    public boolean setString(String key, String value, long time) {
+        redisTemplate.opsForValue().set(key, value,);
+        return true;
+    }*/
 
     @Override
     public void redisWarmUp() {
@@ -67,6 +73,5 @@ public class RedisServiceImpl implements RedisService {
             e.printStackTrace();
         }
     }
-
 
 }
