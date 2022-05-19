@@ -6,6 +6,7 @@ import com.wen.pojo.User;
 import com.wen.utils.NullUtil;
 import com.wen.utils.ResponseUtil;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.Map;
@@ -114,4 +115,57 @@ public class UserController extends BaseController {
         }
         return ResponseUtil.error("密码重置失败");
     }
+
+    @PostMapping("/uploadHead")
+    public String uploadHead(@RequestParam("file") MultipartFile file,
+                             @RequestParam("userId") String userId) {
+        if (file.isEmpty()) {
+            return ResponseUtil.error("空文件");
+        }
+        if (userService.uploadHead(file, userId)) {
+            return ResponseUtil.success("头像上传成功");
+        }
+        return ResponseUtil.error("头像上传失败");
+    }
+
+    @PutMapping("/up_user")
+    public String updateUser(@RequestParam("userId") String userId,
+                             @RequestParam("userName") String userName,
+                             @RequestParam("phoneNumber") String phoneNumber,
+                             @RequestParam("email") String email) {
+        try {
+            User user = userService.getUserById(Integer.parseInt(userId));
+            if (!userName.isEmpty()) {
+                user.setUserName(userName);
+            }
+            if (!phoneNumber.isEmpty()) {
+                user.setPhoneNumber(phoneNumber);
+            }
+            if (!email.isEmpty()) {
+                user.setEmail(email);
+            }
+            userService.updateUser(user);
+            return ResponseUtil.success("修改信息成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseUtil.error("修改信息失败");
+    }
+
+    @PassToken
+    @GetMapping("/get_avatar")
+    public Object getAvatar(@RequestParam("token") String token) {
+        if (NullUtil.hasNull(token)) {
+            return ResponseUtil.error("有空参数！");
+        }
+        try {
+            User user = tokenService.getTokenUser();
+            String avatarPath = user.getAvatar();
+            return fileService.downloadUtil(avatarPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtil.downloadFileError("下载失败");
+        }
+    }
+
 }

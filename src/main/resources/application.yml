@@ -7,9 +7,10 @@ spring:
       max-request-size: 2000MB
   datasource:
     # 配置数据源
-    username: ***
-    password: ***
-    url: jdbc:mysql://***:3306/my_pan?serverTimezone=Hongkong&useAffectedRows=true
+    username: root
+    password: 123456
+    #    url: jdbc:mysql://112.74.78.182:3306/my_pan?serverTimezone=Hongkong&useAffectedRows=true
+    url: jdbc:mysql://127.0.0.1:3306/my_pan?serverTimezone=Hongkong&useAffectedRows=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     # 配置druid数据源
@@ -37,10 +38,11 @@ spring:
     default-encoding: utf-8
 
   redis:
-    host: ***
+    #host: 112.74.78.182
+    host: 127.0.0.1
     port: 6379
     database: 0 #Redis数据库索引（默认为0）
-    password: ***
+    password: WHL123456
     timeout: 1800000 #连接超时时间（毫秒）
     jedis:
       pool:
@@ -68,14 +70,15 @@ netdisc:
   elasticsearch:
     host: 127.0.0.1
     #url: 112.74.78.182
-    port: 9200
+    port: 9000
   file:
     #单位 MB
     max-size: 2000
     show-row: 10
 
   store:
-    root-path: ***
+    #root-path: /wen/tp/pan/store/
+    root-path: D:/pan/store/
     root-id: 0
     #单位 MB
     max-size: 2000

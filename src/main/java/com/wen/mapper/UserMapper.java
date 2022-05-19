@@ -26,6 +26,9 @@ public interface UserMapper {
     List<User> queryUsers();
 
     @CacheEvict(key = "'uid:'+#p0.id")
+    int updatepwd(User user);
+
+    @CacheEvict(key = "'uid:'+#p0.id")
     int updateUser(User user);
 
     User login(String loginName, String pwd);

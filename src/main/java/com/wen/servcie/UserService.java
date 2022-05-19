@@ -1,6 +1,7 @@
 package com.wen.servcie;
 
 import com.wen.pojo.User;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -82,4 +83,6 @@ public interface UserService {
     boolean verifyCode(String loginName, String code);
 
     boolean repwd(String loginName, String password);
+
+    boolean uploadHead(MultipartFile file, String userId);
 }

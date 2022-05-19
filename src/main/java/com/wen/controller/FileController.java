@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * FileController类
+ *
  * @author Mr.文
  */
 @RestController
@@ -170,4 +171,5 @@ public class FileController extends BaseController {
         }
         return ResponseUtil.success(JSON.toJSONString(file));
     }
+
 }

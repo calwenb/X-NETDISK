@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * FileUtil类
+ *
  * @author Mr.文
  */
 @Component
@@ -22,6 +23,7 @@ public class FileUtil {
      */
     public static int FILE_SHOW_ROW;
     public static String STORE_ROOT_PATH;
+    public static String ROOT_PATH;
     /**
      * 仓库根文件夹ID
      */
@@ -71,6 +73,13 @@ public class FileUtil {
         }
         return rs;
     }
+
+    public static String getRootPath() {
+        String storeRootPath = STORE_ROOT_PATH;
+        ROOT_PATH = storeRootPath.substring(0, storeRootPath.lastIndexOf("store/"));
+        return ROOT_PATH;
+    }
+
 
     public static boolean checkFileSize(MultipartFile file) {
         long size = file.getSize();

@@ -151,7 +151,16 @@ public class FileServiceImpl implements FileService {
         //从数据库查询文件信息
         MyFile file = myFileMapper.queryFileById(fileId);
         String filePath = file.getMyFilePath();
-        FileSystemResource downloadFile = new FileSystemResource(filePath);
+        return this.download(filePath);
+    }
+
+    @Override
+    public ResponseEntity<InputStreamResource> downloadUtil(String path) throws IOException {
+        return this.download(path);
+    }
+
+    private ResponseEntity<InputStreamResource> download(String path) throws IOException {
+        FileSystemResource downloadFile = new FileSystemResource(path);
         //设置响应头
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -251,5 +260,23 @@ public class FileServiceImpl implements FileService {
             }
         }
         return list;
+    }
+
+    @Override
+    public boolean uploadFileComm(MultipartFile file, String path) {
+        try {
+            File dest = new File(path);
+            // 检测是否存在目录
+            if (!dest.getParentFile().exists()) {
+                // 新建文件夹
+                dest.getParentFile().mkdirs();
+            }
+            file.transferTo(dest);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 }

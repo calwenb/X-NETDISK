@@ -2,15 +2,14 @@ package com.wen.servcie.impl;
 
 import com.wen.mapper.UserMapper;
 import com.wen.pojo.User;
-import com.wen.servcie.FileStoreService;
-import com.wen.servcie.MailService;
-import com.wen.servcie.TokenService;
-import com.wen.servcie.UserService;
+import com.wen.servcie.*;
+import com.wen.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -35,6 +34,8 @@ public class UserServiceImpl implements UserService {
     MailService mailService;
     @Resource
     RedisTemplate redisTemplate;
+    @Resource
+    FileService fileService;
 
 
     /**
@@ -165,8 +166,21 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         user.setPassWord(password);
-        userMapper.updateUser(user);
+        userMapper.updatepwd(user);
         return true;
+    }
+
+    @Override
+    public boolean uploadHead(MultipartFile file, String userId) {
+        String headRoot = FileUtil.getRootPath() + "head/";
+        String path = headRoot + file.getOriginalFilename();
+        System.out.println(path);
+        if (fileService.uploadFileComm(file, path)) {
+            User user = userMapper.getUserById(Integer.parseInt(userId));
+            user.setAvatar(path);
+            return userMapper.updateUser(user) > 0;
+        }
+        return false;
     }
 
     private String createCode() {

@@ -3,7 +3,6 @@ package com.wen.servcie;
 import com.wen.pojo.MyFile;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -13,6 +12,7 @@ import java.util.List;
  * FileService业务类
  * 对File进行上传、下载、删除、查询、修改、分享、清除无效文件
  * 并操作服务器I/O
+ *
  * @author Mr.文
  */
 public interface FileService {
@@ -29,6 +29,8 @@ public interface FileService {
      * 文件下载业务
      */
     ResponseEntity<InputStreamResource> downloadByMyFileId(int fileId) throws IOException;
+
+    ResponseEntity<InputStreamResource> downloadUtil(String path) throws IOException;
 
     boolean updateFileName(int fileId, String newName);
 
@@ -50,4 +52,6 @@ public interface FileService {
     MyFile getShareFile(String shareCode);
 
     List<String> clearBadFile();
+
+    boolean uploadFileComm(MultipartFile file, String path);
 }

@@ -20,9 +20,22 @@
         select *
         from my_pan.user;
     </select>
-    <update id="updateUser">
+    <update id="updatepwd">
         update my_pan.user
         set pass_word=#{passWord}
+        where id = #{id};
+    </update>
+
+    <update id="updateUser">
+        update my_pan.user
+        set user_name=#{userName},
+            login_name=#{loginName},
+            pass_word=#{passWord},
+            user_type=#{userType},
+            phone_number=#{phoneNumber},
+            email=#{email},
+            avatar=#{avatar},
+            register_time=#{registerTime}
         where id = #{id};
     </update>
 
