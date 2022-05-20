@@ -161,6 +161,9 @@ public class FileServiceImpl implements FileService {
 
     private ResponseEntity<InputStreamResource> download(String path) throws IOException {
         FileSystemResource downloadFile = new FileSystemResource(path);
+        if (!downloadFile.exists()) {
+            return null;
+        }
         //设置响应头
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");

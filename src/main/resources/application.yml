@@ -9,7 +9,7 @@ spring:
     # 配置数据源
     username: root
     password: 123456
-    #    url: jdbc:mysql://112.74.78.182:3306/my_pan?serverTimezone=Hongkong&useAffectedRows=true
+    #url: jdbc:mysql://112.74.78.182:3306/my_pan?serverTimezone=Hongkong&useAffectedRows=true
     url: jdbc:mysql://127.0.0.1:3306/my_pan?serverTimezone=Hongkong&useAffectedRows=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -69,16 +69,16 @@ server:
 netdisc:
   elasticsearch:
     host: 127.0.0.1
-    #url: 112.74.78.182
-    port: 9000
+    # host: 112.74.78.182
+    port: 9206
   file:
     #单位 MB
     max-size: 2000
     show-row: 10
 
   store:
-    #root-path: /wen/tp/pan/store/
-    root-path: D:/pan/store/
+    root-path: /wen/tp/pan/store/
+    #root-path: D:/pan/store/
     root-id: 0
     #单位 MB
     max-size: 2000

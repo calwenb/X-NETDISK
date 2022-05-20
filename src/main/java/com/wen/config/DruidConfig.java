@@ -16,6 +16,7 @@ import java.util.Map;
 
 /**
  * Druid配置类
+ *
  * @author Mr.文
  */
 @Configuration
@@ -62,6 +63,7 @@ public class DruidConfig {
      **/
     @Bean
     public FilterRegistrationBean webStatFilter() {
+        
         FilterRegistrationBean bean = new FilterRegistrationBean();
         bean.setFilter(new WebStatFilter());
         Map<String, String> initParams = new HashMap<>();
