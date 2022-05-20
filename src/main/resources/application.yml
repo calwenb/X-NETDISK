@@ -9,7 +9,6 @@ spring:
     # 配置数据源
     username: root
     password: 123456
-    #url: jdbc:mysql://112.74.78.182:3306/my_pan?serverTimezone=Hongkong&useAffectedRows=true
     url: jdbc:mysql://127.0.0.1:3306/my_pan?serverTimezone=Hongkong&useAffectedRows=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -38,7 +37,6 @@ spring:
     default-encoding: utf-8
 
   redis:
-    #host: 112.74.78.182
     host: 127.0.0.1
     port: 6379
     database: 0 #Redis数据库索引（默认为0）
@@ -69,7 +67,6 @@ server:
 netdisc:
   elasticsearch:
     host: 127.0.0.1
-    # host: 112.74.78.182
     port: 9206
   file:
     #单位 MB
@@ -78,7 +75,6 @@ netdisc:
 
   store:
     root-path: /wen/tp/pan/store/
-    #root-path: D:/pan/store/
     root-id: 0
     #单位 MB
     max-size: 2000
