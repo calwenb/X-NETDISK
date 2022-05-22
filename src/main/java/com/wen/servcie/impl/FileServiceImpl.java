@@ -69,6 +69,7 @@ public class FileServiceImpl implements FileService {
 
             //如果有相同的文件名 加后缀
             File[] broFiles = new File(filePath).listFiles();
+            assert broFiles != null;
             for (File broFile : broFiles) {
                 if (broFile.getName().equals(fileName)) {
                     String pureName = broFile.getName().substring(0, fileName.lastIndexOf(suffixName));

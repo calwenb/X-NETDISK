@@ -21,7 +21,8 @@ public class UserController extends BaseController {
     @PassToken
     @GetMapping("/login")
     public String login(@RequestParam("loginName") String loginName,
-                        @RequestParam("password") String password) {
+                        @RequestParam("password") String password,
+                        @RequestParam(value = "remember", defaultValue = "false") boolean remember) {
         if (NullUtil.hasNull(loginName, password)) {
             return NullUtil.msg();
         }
@@ -31,6 +32,9 @@ public class UserController extends BaseController {
         }
         System.out.println(user.getUserName() + "登录");
         String token = tokenService.getToken(user);
+        if (remember) {
+            tokenService.saveToken(token, user.getUserType());
+        }
         return ResponseUtil.success(token);
     }
 
@@ -52,9 +56,20 @@ public class UserController extends BaseController {
         return ResponseUtil.success(token);
     }
 
+    @GetMapping("/out_login")
+    public String outLogin(@RequestParam("token") String token) {
+        if (NullUtil.hasNull(token)) {
+            return NullUtil.msg();
+        }
+        if (tokenService.removeToken(token)) {
+            return ResponseUtil.success("令牌删除成功");
+        }
+        return ResponseUtil.error("令牌删除失败");
+    }
+
     @GetMapping("/getUser")
     public String getUserByToken(@RequestParam("token") String token) {
-        if ((NullUtil.hasNull(token))) {
+        if (NullUtil.hasNull(token)) {
             return NullUtil.msg();
         }
 
@@ -161,10 +176,13 @@ public class UserController extends BaseController {
         try {
             User user = tokenService.getTokenUser();
             String avatarPath = user.getAvatar();
+            if (avatarPath == null) {
+                return null;
+            }
             return fileService.downloadUtil(avatarPath);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtil.downloadFileError("下载失败");
+            return null;
         }
     }
 

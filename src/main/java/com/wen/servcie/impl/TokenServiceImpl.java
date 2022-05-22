@@ -5,8 +5,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.wen.mapper.UserMapper;
 import com.wen.pojo.User;
 import com.wen.servcie.TokenService;
-import com.wen.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -23,22 +23,38 @@ import java.util.concurrent.TimeUnit;
 public class TokenServiceImpl implements TokenService {
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    RedisTemplate redisTemplate;
+    private final static String JWT_SECRET = "wen";
+    private final static String TOKEN_PREFIX = "token:";
+
+    @Override
+    public void saveToken(String token, Object value) {
+        redisTemplate.opsForValue().set(TOKEN_PREFIX + token, value, 7, TimeUnit.DAYS);
+    }
+
+    @Override
+    public boolean removeToken(String token) {
+        return redisTemplate.delete(TOKEN_PREFIX + token);
+    }
+
+    @Override
+    public boolean verifyToken(String token) {
+        Object o = redisTemplate.opsForValue().get(TOKEN_PREFIX + token);
+        return o != null;
+    }
 
     @Override
     public String getToken(User user) {
         Date start = new Date();
-        //一小时有效时间
-        long currentTime = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(360 * 2);
+        //七天有效时间
+        long currentTime = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7);
         Date end = new Date(currentTime);
-
-        String token = "";
-        token = JWT.create()
+        return JWT.create()
                 .withAudience(String.valueOf(user.getId()))
                 .withIssuedAt(start)
                 .withExpiresAt(end)
-                .sign(Algorithm.HMAC256(user.getPassWord()));
-
-        return token;
+                .sign(Algorithm.HMAC256(JWT_SECRET));
     }
 
     @Override
