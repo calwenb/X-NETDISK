@@ -47,11 +47,12 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 return true;
             }
         }
-        // 执行认证
+
         if (token == null) {
             response.getWriter().println(ResponseUtil.powerError("401"));
             return false;
         }
+        // 执行认证,redis中若有此token，则放行
         if (tokenService.verifyToken(token)) {
             return true;
         }

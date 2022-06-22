@@ -36,7 +36,7 @@ public class FileFolderServiceImpl implements FileFolderService {
         StringBuffer path = new StringBuffer(FileUtil.STORE_ROOT_PATH + fileFolder.getFileStoreId());
         int parentFolderId = fileFolder.getParentFolderId();
         if (parentFolderId == FileUtil.STORE_ROOT_ID) {
-            path.append("/" + fileFolder.getFileFolderName());
+            path.append("/").append(fileFolder.getFileFolderName());
         } else {
             Stack<String> stack = new Stack<>();
             FileFolder pff = fileFolder;
@@ -51,7 +51,7 @@ public class FileFolderServiceImpl implements FileFolderService {
                 pff = fileFolderMapper.queryFileFolderById(pid);
             }
             while (!stack.isEmpty()) {
-                path.append("/" + stack.pop());
+                path.append("/").append(stack.pop());
             }
         }
         try {

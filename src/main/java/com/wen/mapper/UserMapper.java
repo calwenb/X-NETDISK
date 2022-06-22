@@ -39,4 +39,5 @@ public interface UserMapper {
     User getUserById(int id);
 
     User getUserByLName(String loginName);
+
 }

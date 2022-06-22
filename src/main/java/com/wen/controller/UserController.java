@@ -36,6 +36,7 @@ public class UserController extends BaseController {
             tokenService.saveToken(token, user.getUserType());
         }
         return ResponseUtil.success(token);
+
     }
 
     @PassToken

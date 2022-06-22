@@ -1,3 +1,5 @@
+/*
+
 package com.wen.controller;
 
 import com.alibaba.fastjson.JSON;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+*/
 /**
  * 1 第一步：用户同意授权，获取code
  * <p>
@@ -20,7 +23,8 @@ import javax.servlet.http.HttpServletRequest;
  * 4 第四步：拉取用户信息(需scope为 snsapi_userinfo)
  * <p>
  * 5 附：检验授权凭证（access_token）是否有效
- */
+ *//*
+
 @Controller
 @RequestMapping("/wxlogin")
 public class WXLoginController {
@@ -71,3 +75,4 @@ public class WXLoginController {
 
     }
 }
+*/

@@ -43,7 +43,7 @@ public class EsServiceImpl implements EsService {
     public boolean addData(List<MyFile> list) {
         return false;
     }
-
+    
     @Override
     public boolean addData(MyFile file) {
         IndexRequest request = new IndexRequest(KeyUtil.ES_INDEX);

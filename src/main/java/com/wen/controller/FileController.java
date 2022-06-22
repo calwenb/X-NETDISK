@@ -24,7 +24,6 @@ import java.util.List;
 @RequestMapping("/file")
 public class FileController extends BaseController {
 
-
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestParam("file") MultipartFile file,
                              @RequestParam("token") String token,

@@ -16,7 +16,7 @@ public class MailServiceImpl implements MailService {
     private String from;
 
     @Override
-    public boolean sendSimpleMail(String to, String subject, String content) {
+    public void sendSimpleMail(String to, String subject, String content) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(from);
@@ -24,9 +24,7 @@ public class MailServiceImpl implements MailService {
             message.setSubject(subject);
             message.setText(content);
             javaMailSender.send(message);
-            return true;
         } catch (Exception e) {
-            return false;
         }
 
     }

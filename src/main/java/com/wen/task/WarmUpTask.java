@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class WarmUpTask {
+
     @Autowired
     RedisService redisService;
     @Autowired
@@ -30,7 +31,6 @@ public class WarmUpTask {
     public void RedisWarmUp() {
         RedisService service = (RedisService) new LogHandlerUtil().newProxyInstance(redisService);
         service.redisWarmUp();
-
     }
 
     /**
@@ -43,4 +43,5 @@ public class WarmUpTask {
         EsService service = (EsService) new LogHandlerUtil().newProxyInstance(esService);
         service.esWarmUp();
     }
+
 }

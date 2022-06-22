@@ -56,10 +56,7 @@ public interface UserService {
      * 注册业务
      * 注册、并初始化用户仓库
      *
-     * @param userName
-     * @param loginName
-     * @param pwd
-     * @return
+     * @param user
      */
     Map<String, Object> register(User user);
 

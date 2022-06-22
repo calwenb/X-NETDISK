@@ -24,6 +24,7 @@ public class FileFolderController extends BaseController {
     public String addFileFolder(@RequestParam("token") String token,
                                 @RequestParam("parentFolderId") String pFolderId,
                                 @PathVariable String folderName) {
+
         try {
             User user = tokenService.getTokenUser();
             FileStore store = fileStoreService.queryStoreByUserId(user.getId());

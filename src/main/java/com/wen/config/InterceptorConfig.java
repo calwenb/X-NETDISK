@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * Token验证拦截器规则配置类
+ *
  * @author Mr.文
  */
 @Configuration
@@ -20,4 +21,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
         return new AuthenticationInterceptor();
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(authenticationInterceptor());
+    }
 }

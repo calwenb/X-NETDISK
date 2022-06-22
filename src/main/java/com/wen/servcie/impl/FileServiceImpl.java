@@ -43,7 +43,6 @@ public class FileServiceImpl implements FileService {
     @Override
     public boolean uploadFile(MultipartFile file, int userId, String fatherFileFolderId) {
         try {
-
             FileStore fileStore = fileStoreMapper.queryFileStoreByUserId(userId);
             int fileStoreId = fileStore.getFileStoreId();
             // 获取文件名
@@ -149,7 +148,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public ResponseEntity<InputStreamResource> downloadByMyFileId(int fileId) throws IOException {
-        //从数据库查询文件信息
+        //从数据库查询文件信息 换取文件路径
         MyFile file = myFileMapper.queryFileById(fileId);
         String filePath = file.getMyFilePath();
         return this.download(filePath);
@@ -160,6 +159,14 @@ public class FileServiceImpl implements FileService {
         return this.download(path);
     }
 
+    /**
+     * 通用下载方法
+     * 通过文件路径 获得本地文件
+     * 自定义响应 将文件流放入响应体中
+     * @param path
+     * @return
+     * @throws IOException
+     */
     private ResponseEntity<InputStreamResource> download(String path) throws IOException {
         FileSystemResource downloadFile = new FileSystemResource(path);
         if (!downloadFile.exists()) {
@@ -221,6 +228,7 @@ public class FileServiceImpl implements FileService {
             }
         }
         try {
+
             //SessionCallback事务
             SessionCallback<Object> callback = new SessionCallback<Object>() {
                 @Override
