@@ -19,8 +19,7 @@ public class SearchController extends BaseController {
     EsService esService;
 
     @GetMapping("/s/{keyword}")
-    public String searchData(@RequestParam("token") String token,
-                             @PathVariable("keyword") String keyword) {
+    public String searchData(@PathVariable("keyword") String keyword) {
         int userId = Integer.parseInt(tokenService.getTokenUserId());
         try {
             int storeId = fileStoreService.queryStoreByUserId(userId).getFileStoreId();

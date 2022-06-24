@@ -18,49 +18,57 @@ public class ResponseUtil {
     private static final String U_FILE_ERROR_CODE = "701";
 
     private static final String D_FILE_ERROR_CODE = "702";
-    private static final String POWER_ERROR = "401";
+    private static final String POWER_ERROR_CODE = "401";
+    private static final String BAD_REQUEST_CODE = "400";
 
 
     public static String success(String msg) {
-        HashMap<String, String> resp = new HashMap<>(16);
+        HashMap<String, String> resp = new HashMap<>(4);
         resp.put("code", SUCCESS_CODE);
         resp.put("msg", msg);
         return JSON.toJSONString(resp);
     }
 
     public static String error(String msg) {
-        HashMap<String, String> resp = new HashMap<>(16);
+        HashMap<String, String> resp = new HashMap<>(4);
         resp.put("code", ERROR_CODE);
         resp.put("msg", msg);
         return JSON.toJSONString(resp);
     }
 
     public static String uploadFileError(String msg) {
-        HashMap<String, String> resp = new HashMap<>(16);
+        HashMap<String, String> resp = new HashMap<>(4);
         resp.put("code", D_FILE_ERROR_CODE);
         resp.put("msg", msg);
         return JSON.toJSONString(resp);
     }
 
     public static String downloadFileError(String msg) {
-        HashMap<String, String> resp = new HashMap<>(16);
+        HashMap<String, String> resp = new HashMap<>(4);
         resp.put("code", U_FILE_ERROR_CODE);
         resp.put("msg", msg);
         return JSON.toJSONString(resp);
     }
 
     public static String fileMiss(String msg) {
-        HashMap<String, String> resp = new HashMap<>(16);
+        HashMap<String, String> resp = new HashMap<>(4);
         resp.put("code", FILE_MISS_CODE);
         resp.put("msg", msg);
         return JSON.toJSONString(resp);
     }
 
     public static String powerError(String msg) {
-        HashMap<String, String> resp = new HashMap<>(16);
-        resp.put("code", POWER_ERROR);
+        HashMap<String, String> resp = new HashMap<>(4);
+        resp.put("code", POWER_ERROR_CODE);
         resp.put("msg", msg);
         return JSON.toJSONString(resp);
 
+    }
+
+    public static String badRequest(String msg) {
+        HashMap<String, String> resp = new HashMap<>(4);
+        resp.put("code", BAD_REQUEST_CODE);
+        resp.put("msg", msg);
+        return JSON.toJSONString(resp);
     }
 }

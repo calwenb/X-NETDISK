@@ -21,8 +21,7 @@ public class FileFolderController extends BaseController {
 
 
     @PostMapping("addFileFolder/{folderName}")
-    public String addFileFolder(@RequestParam("token") String token,
-                                @RequestParam("parentFolderId") String pFolderId,
+    public String addFileFolder( @RequestParam("parentFolderId") String pFolderId,
                                 @PathVariable String folderName) {
 
         try {
@@ -40,11 +39,8 @@ public class FileFolderController extends BaseController {
     }
 
     @DeleteMapping("/delFileFolder")
-    public String delFileFolder(@RequestParam("token") String token,
-                                @RequestParam("IdList") String folderId) {
-        if (NullUtil.hasNull(token, folderId)) {
-            return ResponseUtil.error("有空参数！");
-        }
+    public String delFileFolder(@RequestParam("IdList") String folderId) {
+
         List<String> list = JSON.parseArray(folderId, String.class);
         try {
             int count = 0;
@@ -66,11 +62,7 @@ public class FileFolderController extends BaseController {
 
     @PutMapping("/updateFolderName")
     public String updateFolderName(@RequestParam("fileId") String folderId,
-                                   @RequestParam("newName") String newName,
-                                   @RequestParam("token") String token) {
-        if (NullUtil.hasNull(folderId, newName)) {
-            return ResponseUtil.error("有空参数！");
-        }
+                                   @RequestParam("newName") String newName) {
         try {
             if (fileFolderService.updateFolderName(Integer.parseInt(folderId), newName)) {
                 return ResponseUtil.success("重命名成功");

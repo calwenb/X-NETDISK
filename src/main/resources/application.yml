@@ -74,7 +74,7 @@ netdisc:
     show-row: 10
 
   store:
-    root-path: D:/pan/store/
+    root-path: D:/project-support/pan/store/
     root-id: 0
     #单位 MB
     max-size: 2000

@@ -3,7 +3,6 @@ package com.wen.controller;
 import com.alibaba.fastjson.JSON;
 import com.wen.annotation.PassToken;
 import com.wen.pojo.User;
-import com.wen.utils.NullUtil;
 import com.wen.utils.ResponseUtil;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,17 +22,18 @@ public class UserController extends BaseController {
     public String login(@RequestParam("loginName") String loginName,
                         @RequestParam("password") String password,
                         @RequestParam(value = "remember", defaultValue = "false") boolean remember) {
-        if (NullUtil.hasNull(loginName, password)) {
-            return NullUtil.msg();
-        }
+
         User user = userService.login(loginName, password);
         if (user == null) {
             return ResponseUtil.error("账号或者密码错误");
         }
         System.out.println(user.getUserName() + "登录");
         String token = tokenService.getToken(user);
+        //记住密码给30天，否则12小时
         if (remember) {
-            tokenService.saveToken(token, user.getUserType());
+            tokenService.saveToken(token, user.getUserType(), 30 * 24);
+        } else {
+            tokenService.saveToken(token, user.getUserType(), 12);
         }
         return ResponseUtil.success(token);
 
@@ -45,23 +45,20 @@ public class UserController extends BaseController {
                            @RequestParam("email") String email,
                            @RequestParam("loginName") String loginName,
                            @RequestParam("password") String password) {
-        if ((NullUtil.hasNull(userName, email, loginName, password))) {
-            return NullUtil.msg();
-        }
+
         User user = new User(-1, userName, loginName, password, 2, "", email, "/#", new Date());
         Map<String, Object> rs = userService.register(user);
         if (rs.containsKey("error")) {
             return ResponseUtil.error(rs.get("error").toString());
         }
         String token = tokenService.getToken((User) rs.get("user"));
+        tokenService.saveToken(token, user.getUserType(), 12);
         return ResponseUtil.success(token);
     }
 
     @GetMapping("/out_login")
     public String outLogin(@RequestParam("token") String token) {
-        if (NullUtil.hasNull(token)) {
-            return NullUtil.msg();
-        }
+
         if (tokenService.removeToken(token)) {
             return ResponseUtil.success("令牌删除成功");
         }
@@ -70,9 +67,7 @@ public class UserController extends BaseController {
 
     @GetMapping("/getUser")
     public String getUserByToken(@RequestParam("token") String token) {
-        if (NullUtil.hasNull(token)) {
-            return NullUtil.msg();
-        }
+
 
         User user = tokenService.getTokenUser();
         if (user == null) {
@@ -84,9 +79,7 @@ public class UserController extends BaseController {
     @PutMapping("/updatePassword")
     public String updatePassword(@RequestParam("token") String token,
                                  @RequestParam("password") String password) {
-        if ((NullUtil.hasNull(token))) {
-            return NullUtil.msg();
-        }
+
         User user = tokenService.getTokenUser();
         if (user == null) {
             return ResponseUtil.error("错误令牌!!");
@@ -105,9 +98,7 @@ public class UserController extends BaseController {
     @PostMapping("/sendCode")
     public String sendCode(@RequestParam("loginName") String loginName,
                            @RequestParam("email") String email) {
-        if ((NullUtil.hasNull(loginName, email))) {
-            return NullUtil.msg();
-        }
+
         if (userService.sendCode(loginName, email)) {
             return ResponseUtil.success("发送成功，三分钟内有效");
         }
@@ -120,9 +111,7 @@ public class UserController extends BaseController {
     public String repwd(@RequestParam("loginName") String loginName,
                         @RequestParam("password") String password,
                         @RequestParam("code") String code) {
-        if ((NullUtil.hasNull(loginName, password))) {
-            return NullUtil.msg();
-        }
+
         if (!userService.verifyCode(loginName, code)) {
             return ResponseUtil.error("验证码不正确或已失效");
         }
@@ -171,9 +160,7 @@ public class UserController extends BaseController {
     @PassToken
     @GetMapping("/get_avatar")
     public Object getAvatar(@RequestParam("token") String token) {
-        if (NullUtil.hasNull(token)) {
-            return ResponseUtil.error("有空参数！");
-        }
+
         try {
             User user = tokenService.getTokenUser();
             String avatarPath = user.getAvatar();

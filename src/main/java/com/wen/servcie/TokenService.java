@@ -11,7 +11,7 @@ import com.wen.pojo.User;
  * @author Mr.文
  */
 public interface TokenService {
-    void saveToken(String token, Object value);
+    void saveToken(String token, Object value, int hour);
 
     boolean verifyToken(String token);
 
@@ -22,4 +22,10 @@ public interface TokenService {
     User getTokenUser();
 
     boolean removeToken(String token);
+
+    Long getExpireTime(String token);
+
+    boolean renew(String token, int hour);
+
+
 }

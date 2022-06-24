@@ -26,17 +26,11 @@ public class FileController extends BaseController {
 
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestParam("file") MultipartFile file,
-                             @RequestParam("token") String token,
                              @RequestParam("fatherFileFolderId") String fatherFileFolderId) {
-        if (file.isEmpty()) {
-            return ResponseUtil.uploadFileError("文件为空");
-        }
+
         // 判断上传文件大小
         if (!FileUtil.checkFileSize(file)) {
             return ResponseUtil.uploadFileError("上传文件大于2GB ");
-        }
-        if ("".equals(token)) {
-            return ResponseUtil.error("请登录!");
         }
         User user = tokenService.getTokenUser();
         int userId = user.getId();
@@ -47,11 +41,8 @@ public class FileController extends BaseController {
     }
 
     @GetMapping("/queryMyFiles")
-    public String queryMyFiles(@RequestParam("token") String token,
-                               @RequestParam("parentFolderId") String parentFolderId) {
-        if (NullUtil.hasNull(token, parentFolderId)) {
-            return ResponseUtil.error("有空参数！");
-        }
+    public String queryMyFiles(@RequestParam("parentFolderId") String parentFolderId) {
+
         List<MyFile> myFiles;
         List<FileFolder> fileFolders;
         List fileAndFolds = new ArrayList();
@@ -71,12 +62,8 @@ public class FileController extends BaseController {
     }
 
     @GetMapping("/queryFilesByType/{type}/P/{page}")
-    public String queryFilesByType(@RequestParam("token") String token,
-                                   @PathVariable String type,
+    public String queryFilesByType(@PathVariable String type,
                                    @PathVariable String page) {
-        if (NullUtil.hasNull(token, type, page)) {
-            return ResponseUtil.error("有空参数！");
-        }
         List<MyFile> myFiles;
         try {
             User user = tokenService.getTokenUser();
@@ -89,11 +76,8 @@ public class FileController extends BaseController {
     }
 
     @DeleteMapping("/delByFileIds")
-    public String delByFileIds(@RequestParam("token") String token,
-                               @RequestParam("IdList") String fileIdList) {
-        if (NullUtil.hasNull(token, fileIdList)) {
-            return ResponseUtil.error("有空参数！");
-        }
+    public String delByFileIds(@RequestParam("IdList") String fileIdList) {
+
         List<String> list = JSON.parseArray(fileIdList, String.class);
         try {
             int count = 0;
